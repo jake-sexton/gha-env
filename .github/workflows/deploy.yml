@@ -1,16 +1,19 @@
 name: Deployment
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - master
+      - dev
 env:
   MONGODB_DB_NAME: qa-db-demo
 jobs:
   test:
+    environment: testing
     env: 
       MONGODB_CLUSTER_ADDRESS: cluster0.q823q.mongodb.net
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
       PORT: 8080
-    environment: testing
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
